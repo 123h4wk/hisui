@@ -10,6 +10,35 @@ final class TestRunner
 
     public function addTestCase(string $testCaseClassName): void
     {
+        if (!class_exists($testCaseClassName)) {
+            throw new \InvalidArgumentException('クラスが存在しません。');
+        }
+
+        $refClass = new \ReflectionClass($testCaseClassName);
+
+        if (!$refClass->isSubclassOf(TestCase::class)) {
+            throw new \InvalidArgumentException(
+                'TestCaseを継承したクラスではありません。'
+            );
+        }
+
+        if (!$refClass->isInstantiable()) {
+            throw new \InvalidArgumentException(
+                'インスタンス生成可能なクラスではありません。'
+            );
+        }
+
+        $constructor = $refClass->getConstructor();
+
+        if (
+            $constructor !== null
+            && $constructor->getNumberOfRequiredParameters() > 0
+        ) {
+            throw new \InvalidArgumentException(
+                '引数なしでインスタンス生成可能なクラスではありません。'
+            );
+        }
+
         $this->testCaseClassNames[] = $testCaseClassName;
     }
 
@@ -18,7 +47,6 @@ final class TestRunner
         $testResultCollection = new TestResultCollection();
 
         foreach ($this->testCaseClassNames as $testCaseClassName) {
-            $class = new $testCaseClassName();
             $refClass = new \ReflectionClass($testCaseClassName);
             $methodRefs = $refClass->getMethods();
 
@@ -32,6 +60,7 @@ final class TestRunner
                 }
 
                 try {
+                    $class = new $testCaseClassName();
                     $class->$methodName();
                     $testResultCollection->addPassedResult($methodName);
                 } catch (AssertionFailed $e) {
