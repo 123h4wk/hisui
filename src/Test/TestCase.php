@@ -6,7 +6,7 @@ namespace Hisui\Test;
 
 class TestCase
 {
-    protected function assertEqual(mixed $actual, mixed $expected)
+    protected function assertEqual(mixed $actual, mixed $expected): void
     {
         if ($actual !== $expected) {
             throw new AssertionFailed(sprintf(

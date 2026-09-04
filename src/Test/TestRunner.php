@@ -15,7 +15,6 @@ final class TestRunner
 
     public function run(): TestResultCollection
     {
-
         $testResultCollection = new TestResultCollection();
 
         foreach ($this->testCaseClassNames as $testCaseClassName) {

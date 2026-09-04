@@ -9,6 +9,6 @@ final class TestResult
     public function __construct(
       readonly bool $isPass,
       readonly string $methodName,
-      readonly string $errorMessage
+      readonly string $errorMessage,
     ) {}
 }

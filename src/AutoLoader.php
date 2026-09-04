@@ -20,7 +20,18 @@ final class AutoLoader
         spl_autoload_register($this->requireFile(...));
     }
 
-    private function loadClass(string $class): string | false
+    private function requireFile(string $class): bool
+    {
+        $classFilePath = $this->loadClassFilePath($class);
+        if ($classFilePath) {
+            require $classFilePath;
+            return true;
+        }
+
+        return false;
+    }
+
+    private function loadClassFilePath(string $class): string | false
     {
         $prefix = $class;
 
@@ -28,25 +39,14 @@ final class AutoLoader
             $prefix = substr($prefix, 0, $pos);
             $mapKey = $prefix . '\\';
             if (array_key_exists($mapKey, $this->map)) {
-                $fullPath = $this->map[$mapKey] . substr($class, $pos + 1);
-                $filePath = str_replace('\\', '/', $fullPath) . '.php';
-                if (file_exists($filePath)) {
-                    return $filePath;
+                $path = $this->map[$mapKey] . substr($class, $pos + 1);
+                $classFilePath = str_replace('\\', '/', $path) . '.php';
+                if (file_exists($classFilePath)) {
+                    return $classFilePath;
                 }
             }
         }
 
         return false;
-    }
-
-    private function requireFile(string $class): bool
-    {
-        $classPath = $this->loadClass($class);
-        if ($classPath) {
-            require $classPath;
-            return true;
-        } else {
-            return false;
-        }
     }
 }
