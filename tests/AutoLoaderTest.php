@@ -2,17 +2,25 @@
 
 declare(strict_types=1);
 
-require __DIR__ . '/../src/AutoLoader.php';
+namespace Hisui\Tests;
 
-$autoLoader = new Hisui\AutoLoader();
-$autoLoader->addNamespace('AutoLoad\\', __DIR__ . '/fixtures/autoload');
-$autoLoader->addNamespace('AutoLoad\\Another', __DIR__ . '/fixtures/autoload/another');
-$autoLoader->register();
-
+use Hisui\AutoLoader;
+use Hisui\Test\TestCase;
 use AutoLoad\MainClass;
 use AutoLoad\Deep\ModuleClass;
 use AutoLoad\Another\CoreClass;
 
-assert(new MainClass() instanceof MainClass);
-assert(new ModuleClass() instanceof ModuleClass);
-assert(new CoreClass() instanceof CoreClass);
+final class AutoLoaderTest extends TestCase
+{
+    public function testLoadFile(): void
+    {
+        $autoLoader = new AutoLoader();
+        $autoLoader->addNamespace('AutoLoad\\', __DIR__ . '/fixtures/autoload');
+        $autoLoader->addNamespace('AutoLoad\\Another', __DIR__ . '/fixtures/autoload/another');
+        $autoLoader->register();
+
+        $this->assertEqual(new MainClass() instanceof MainClass, true);
+        $this->assertEqual(new ModuleClass() instanceof ModuleClass, true);
+        $this->assertEqual(new CoreClass() instanceof CoreClass, true);
+    }
+}
