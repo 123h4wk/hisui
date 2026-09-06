@@ -10,7 +10,7 @@ final class PassingTestCase extends TestCase
 {
     public function testEqual(): void
     {
-        $this->assertEqual(1, 1);
+        $this->assertSame(1, 1);
     }
 
     public function testThrow(): void

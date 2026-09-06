@@ -13,17 +13,17 @@ final class ResponseTest extends TestCase
     {
         $response = new Response(201, 'body', ['Foo' => 'Bar']);
 
-        $this->assertEqual($response->status, 201);
-        $this->assertEqual($response->body, 'body');
-        $this->assertEqual($response->headers['Foo'], 'Bar');
+        $this->assertSame(201, $response->status);
+        $this->assertSame('body', $response->body);
+        $this->assertSame('Bar', $response->headers['Foo']);
     }
 
     public function testCreateResponseWithDefaults(): void
     {
         $response = new Response();
 
-        $this->assertEqual($response->status, 200);
-        $this->assertEqual($response->body, '');
-        $this->assertEqual($response->headers, []);
+        $this->assertSame(200, $response->status);
+        $this->assertSame('', $response->body);
+        $this->assertSame([], $response->headers);
     }
 }

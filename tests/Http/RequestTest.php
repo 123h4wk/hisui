@@ -17,10 +17,10 @@ final class RequestTest extends TestCase
             '/users'
         );
 
-        $this->assertEqual($request->getMethod(), HttpMethod::Get);
-        $this->assertEqual($request->getPath(), '/users');
-        $this->assertEqual($request->getQueryParam('id'), null);
-        $this->assertEqual($request->getListQueryParam('id'), []);
+        $this->assertSame(HttpMethod::Get, $request->getMethod());
+        $this->assertSame('/users', $request->getPath());
+        $this->assertSame(null, $request->getQueryParam('id'));
+        $this->assertSame([], $request->getListQueryParam('id'));
 
     }
 
@@ -31,10 +31,10 @@ final class RequestTest extends TestCase
             '/users?id=100'
         );
 
-        $this->assertEqual($request->getMethod(), HttpMethod::Get);
-        $this->assertEqual($request->getPath(), '/users');
-        $this->assertEqual($request->getQueryParam('id'), '100');
-        $this->assertEqual($request->getListQueryParam('id'), []);
+        $this->assertSame(HttpMethod::Get, $request->getMethod());
+        $this->assertSame('/users', $request->getPath());
+        $this->assertSame('100', $request->getQueryParam('id'));
+        $this->assertSame([], $request->getListQueryParam('id'));
     }
 
     public function testCreateRequestWithListQuery(): void
@@ -44,10 +44,10 @@ final class RequestTest extends TestCase
             '/list?type=programing&languages[]=php&languages[]=java'
         );
 
-        $this->assertEqual($request->getMethod(), HttpMethod::Get);
-        $this->assertEqual($request->getPath(), '/list');
-        $this->assertEqual($request->getQueryParam('type'), 'programing');
-        $this->assertEqual($request->getListQueryParam('languages')[0], 'php');
-        $this->assertEqual($request->getListQueryParam('languages')[1], 'java');
+        $this->assertSame(HttpMethod::Get, $request->getMethod());
+        $this->assertSame('/list', $request->getPath());
+        $this->assertSame('programing', $request->getQueryParam('type'));
+        $this->assertSame('php', $request->getListQueryParam('languages')[0]);
+        $this->assertSame('java', $request->getListQueryParam('languages')[1]);
     }
 }

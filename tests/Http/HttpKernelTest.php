@@ -16,7 +16,7 @@ final class HttpKernelTest extends TestCase
         $request = new Request('GET', '/');
         $response = $kernel->handle($request);
 
-        $this->assertEqual($response->status, 200);
-        $this->assertEqual($response->body, 'Hisui');
+        $this->assertSame(200, $response->status);
+        $this->assertSame('Hisui', $response->body);
     }
 }

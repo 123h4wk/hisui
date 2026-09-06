@@ -19,8 +19,8 @@ final class AutoLoaderTest extends TestCase
         $autoLoader->addNamespace('AutoLoad\\Another', __DIR__ . '/fixtures/autoload/another');
         $autoLoader->register();
 
-        $this->assertEqual(new MainClass() instanceof MainClass, true);
-        $this->assertEqual(new ModuleClass() instanceof ModuleClass, true);
-        $this->assertEqual(new CoreClass() instanceof CoreClass, true);
+        $this->assertSame(true, new MainClass() instanceof MainClass);
+        $this->assertSame(true, new ModuleClass() instanceof ModuleClass);
+        $this->assertSame(true, new CoreClass() instanceof CoreClass);
     }
 }

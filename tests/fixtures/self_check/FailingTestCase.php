@@ -10,7 +10,7 @@ final class FailingTestCase extends TestCase
 {
     public function testNotEqual(): void
     {
-        $this->assertEqual(1, 2);
+        $this->assertSame(2, 1);
     }
 
     public function testNotThrow(): void
