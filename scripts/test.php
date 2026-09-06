@@ -5,6 +5,7 @@ declare(strict_types=1);
 use Hisui\Test\TestRunner;
 use Hisui\Tests\Test\SelfCheck;
 use Hisui\Tests\AutoLoaderTest;
+use Hisui\Tests\Http\HttpKernelTest;
 use Hisui\Tests\Http\RequestTest;
 use Hisui\Tests\Http\ResponseTest;
 
@@ -15,6 +16,7 @@ SelfCheck::run();
 
 $testRunner = new TestRunner();
 $testRunner->addTestCase(AutoLoaderTest::class);
+$testRunner->addTestCase(HttpKernelTest::class);
 $testRunner->addTestCase(RequestTest::class);
 $testRunner->addTestCase(ResponseTest::class);
 $testResultCollection = $testRunner->run();
