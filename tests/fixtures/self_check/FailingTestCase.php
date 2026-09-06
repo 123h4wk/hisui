@@ -12,4 +12,16 @@ final class FailingTestCase extends TestCase
     {
         $this->assertEqual(1, 2);
     }
+
+    public function testNotThrow(): void
+    {
+        $this->assertThrows(\InvalidArgumentException::class, function () {});
+    }
+
+    public function testThrowDifferentClass(): void
+    {
+        $this->assertThrows(\InvalidArgumentException::class, function () {
+            throw new \RuntimeException("Test");
+        });
+    }
 }

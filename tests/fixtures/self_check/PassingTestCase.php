@@ -12,4 +12,18 @@ final class PassingTestCase extends TestCase
     {
         $this->assertEqual(1, 1);
     }
+
+    public function testThrow(): void
+    {
+        $this->assertThrows(\InvalidArgumentException::class, function () {
+            throw new \InvalidArgumentException("Test");
+        });
+    }
+
+    public function testThrowSubClass(): void
+    {
+        $this->assertThrows(\LogicException::class, function () {
+            throw new \InvalidArgumentException("Test");
+        });
+    }
 }
