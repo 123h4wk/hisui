@@ -6,8 +6,8 @@ namespace Hisui\Http;
 
 final class Request
 {
-    private readonly HttpMethod $method;
-    private readonly string $path;
+    public readonly HttpMethod $method;
+    public readonly string $path;
     private readonly array $queryParams;
 
     public function __construct(
@@ -33,16 +33,6 @@ final class Request
         $this->path = $path;
         parse_str($query, $queryParams);
         $this->queryParams = $queryParams;
-    }
-
-    public function getMethod(): HttpMethod
-    {
-        return $this->method;
-    }
-
-    public function getPath(): string
-    {
-        return $this->path;
     }
 
     public function getQueryParam(string $name): ?string

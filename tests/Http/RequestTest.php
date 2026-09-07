@@ -17,8 +17,8 @@ final class RequestTest extends TestCase
             '/users'
         );
 
-        $this->assertSame(HttpMethod::Get, $request->getMethod());
-        $this->assertSame('/users', $request->getPath());
+        $this->assertSame(HttpMethod::Get, $request->method);
+        $this->assertSame('/users', $request->path);
         $this->assertSame(null, $request->getQueryParam('id'));
         $this->assertSame([], $request->getListQueryParam('id'));
 
@@ -31,8 +31,8 @@ final class RequestTest extends TestCase
             '/users?id=100'
         );
 
-        $this->assertSame(HttpMethod::Get, $request->getMethod());
-        $this->assertSame('/users', $request->getPath());
+        $this->assertSame(HttpMethod::Get, $request->method);
+        $this->assertSame('/users', $request->path);
         $this->assertSame('100', $request->getQueryParam('id'));
         $this->assertSame([], $request->getListQueryParam('id'));
     }
@@ -44,8 +44,8 @@ final class RequestTest extends TestCase
             '/list?type=programing&languages[]=php&languages[]=java'
         );
 
-        $this->assertSame(HttpMethod::Get, $request->getMethod());
-        $this->assertSame('/list', $request->getPath());
+        $this->assertSame(HttpMethod::Get, $request->method);
+        $this->assertSame('/list', $request->path);
         $this->assertSame('programing', $request->getQueryParam('type'));
         $this->assertSame('php', $request->getListQueryParam('languages')[0]);
         $this->assertSame('java', $request->getListQueryParam('languages')[1]);
