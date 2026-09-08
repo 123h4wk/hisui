@@ -10,7 +10,7 @@ use Hisui\Test\TestCase;
 
 final class RequestTest extends TestCase
 {
-    public function testCreateRequest(): void
+    public function testCreate(): void
     {
         $request = new Request(
             'GET',
@@ -21,10 +21,9 @@ final class RequestTest extends TestCase
         $this->assertSame('/users', $request->path);
         $this->assertSame(null, $request->getQueryParam('id'));
         $this->assertSame([], $request->getListQueryParam('id'));
-
     }
 
-    public function testCreateRequestWithQuery(): void
+    public function testCreateWithQuery(): void
     {
         $request = new Request(
             'GET',
@@ -37,7 +36,7 @@ final class RequestTest extends TestCase
         $this->assertSame([], $request->getListQueryParam('id'));
     }
 
-    public function testCreateRequestWithListQuery(): void
+    public function testCreateWithListQuery(): void
     {
         $request = new Request(
             'GET',
@@ -49,5 +48,19 @@ final class RequestTest extends TestCase
         $this->assertSame('programing', $request->getQueryParam('type'));
         $this->assertSame('php', $request->getListQueryParam('languages')[0]);
         $this->assertSame('java', $request->getListQueryParam('languages')[1]);
+    }
+
+    public function testCreateWithInvalidMethod(): void
+    {
+        $this->assertThrows(\InvalidArgumentException::class, function () {
+            new Request('INVALID', '/users');
+        });
+    }
+
+    public function testCreateWithInvalidTarget(): void
+    {
+        $this->assertThrows(\InvalidArgumentException::class, function () {
+            new Request('GET', 'users');
+        });
     }
 }
