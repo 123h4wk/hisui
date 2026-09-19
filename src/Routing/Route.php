@@ -9,14 +9,17 @@ use Hisui\Http\HttpMethod;
 final class Route
 {
     private HttpMethod $method;
-    private \Closure $action;
+    private RouteAction $action;
     private array $patternList = [];
     private array $parameterList = [];
 
-    public function __construct(HttpMethod $method, string $pattern, callable $callback)
-    {
+    public function __construct(
+        HttpMethod $method,
+        string $pattern,
+        RouteAction $routeAction,
+    ) {
         $this->method = $method;
-        $this->action = \Closure::fromCallable($callback);
+        $this->action = $routeAction;
 
         foreach ($this->createSegments($pattern) as $segment) {
             $matches = [];

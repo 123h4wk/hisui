@@ -4,10 +4,29 @@ declare(strict_types=1);
 
 namespace Hisui\Http;
 
+use Hisui\Routing\Router;
+
 final class HttpKernel
 {
+    public function __construct(
+        private Router $router,
+    ) {
+    }
+
     public function handle(Request $request): Response
     {
-        return new Response(200, 'Hisui');
+        $matched = $this->router->resolve(
+            $request->method,
+            $request->path,
+        );
+
+        if ($matched === null) {
+            return new Response(404);
+        }
+
+        $controller = new $matched->action->class();
+        $actionName = $matched->action->name;
+
+        return $controller->{$actionName}($request);
     }
 }

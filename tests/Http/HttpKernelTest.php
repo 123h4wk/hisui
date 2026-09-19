@@ -6,17 +6,26 @@ namespace Hisui\Tests\Http;
 
 use Hisui\Http\HttpKernel;
 use Hisui\Http\Request;
+use Hisui\Http\Response;
+use Hisui\Routing\Router;
 use Hisui\Test\TestCase;
 
 final class HttpKernelTest extends TestCase
 {
-    public function testCreate(): void
+    public function testHandleRequest(): void
     {
-        $kernel = new HttpKernel();
-        $request = new Request('GET', '/');
-        $response = $kernel->handle($request);
+        $controller = new class {
+            public function index(Request $request): Response
+            {
+                return new Response(200, $request->method->value);
+            }
+        };
+        $router = new Router();
+        $router->get('/', [get_class($controller), 'index']);
+        $kernel = new HttpKernel($router);
+        $response = $kernel->handle(new Request('GET', '/'));
 
         $this->assertSame(200, $response->status);
-        $this->assertSame('Hisui', $response->body);
+        $this->assertSame('GET', $response->body);
     }
 }

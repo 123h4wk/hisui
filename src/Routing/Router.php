@@ -10,39 +10,46 @@ final class Router
 {
     private array $routes = [];
 
-    public function get(string $path, callable $callback): void
+    public function get(string $path, array $actionDef): void
     {
-        $this->routes[] = new Route(HttpMethod::Get, $path, $callback);
+        $action = new RouteAction(...$actionDef);
+        $this->routes[] = new Route(HttpMethod::Get, $path, $action);
     }
 
-    public function post(string $path, callable $callback): void
+    public function post(string $path, array $actionDef): void
     {
-        $this->routes[] = new Route(HttpMethod::Post, $path, $callback);
+        $action = new RouteAction(...$actionDef);
+        $this->routes[] = new Route(HttpMethod::Post, $path, $action);
     }
 
-    public function put(string $path, callable $callback): void
+    public function put(string $path, array $actionDef): void
     {
-        $this->routes[] = new Route(HttpMethod::Put, $path, $callback);
+        $action = new RouteAction(...$actionDef);
+        $this->routes[] = new Route(HttpMethod::Put, $path, $action);
     }
 
-    public function patch(string $path, callable $callback): void
+    public function patch(string $path, array $actionDef): void
     {
-        $this->routes[] = new Route(HttpMethod::Patch, $path, $callback);
+        $action = new RouteAction(...$actionDef);
+        $this->routes[] = new Route(HttpMethod::Patch, $path, $action);
     }
 
-    public function delete(string $path, callable $callback): void
+    public function delete(string $path, array $actionDef): void
     {
-        $this->routes[] = new Route(HttpMethod::Delete, $path, $callback);
+        $action = new RouteAction(...$actionDef);
+        $this->routes[] = new Route(HttpMethod::Delete, $path, $action);
     }
 
-    public function options(string $path, callable $callback): void
+    public function options(string $path, array $actionDef): void
     {
-        $this->routes[] = new Route(HttpMethod::Options, $path, $callback);
+        $action = new RouteAction(...$actionDef);
+        $this->routes[] = new Route(HttpMethod::Options, $path, $action);
     }
 
-    public function head(string $path, callable $callback): void
+    public function head(string $path, array $actionDef): void
     {
-        $this->routes[] = new Route(HttpMethod::Head, $path, $callback);
+        $action = new RouteAction(...$actionDef);
+        $this->routes[] = new Route(HttpMethod::Head, $path, $action);
     }
 
     public function resolve(HttpMethod $method, string $path): ?RouteMatch

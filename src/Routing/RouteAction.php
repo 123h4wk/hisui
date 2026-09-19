@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Hisui\Routing;
 
-final readonly class RouteMatch
+final readonly class RouteAction
 {
     public function __construct(
-        public RouteAction $action,
-        public array $params
+        public string $class,
+        public string $name,
     ) {
     }
 }

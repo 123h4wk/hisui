@@ -13,9 +13,8 @@ final class RouterTest extends TestCase
 {
     public function testResolve(): void
     {
-        $callback = function () {};
         $router = new Router();
-        $router->get('/users', $callback);
+        $router->get('/users', ['MockController', 'index']);
 
         $matched = $router->resolve(HttpMethod::Get, '/users');
         $this->assertSame(true, $matched instanceof RouteMatch);
@@ -26,15 +25,14 @@ final class RouterTest extends TestCase
 
     public function testResolveAnyHttpMethod(): void
     {
-        $callback = function () {};
         $router = new Router();
-        $router->get('/users', $callback);
-        $router->post('/users', $callback);
-        $router->put('/users', $callback);
-        $router->patch('/users', $callback);
-        $router->delete('/users', $callback);
-        $router->options('/users', $callback);
-        $router->head('/users', $callback);
+        $router->get('/users', ['MockController', 'index']);
+        $router->post('/users', ['MockController', 'index']);
+        $router->put('/users', ['MockController', 'index']);
+        $router->patch('/users', ['MockController', 'index']);
+        $router->delete('/users', ['MockController', 'index']);
+        $router->options('/users', ['MockController', 'index']);
+        $router->head('/users', ['MockController', 'index']);
 
         $matched = $router->resolve(HttpMethod::Get, '/users');
         $this->assertSame(true, $matched instanceof RouteMatch);
