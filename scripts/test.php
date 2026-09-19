@@ -11,6 +11,7 @@ use Hisui\Tests\Http\ResponseTest;
 use Hisui\Tests\Routing\RouteTest;
 use Hisui\Tests\Routing\RouterTest;
 use Hisui\Tests\Routing\RouteMatchTest;
+use Hisui\Tests\View\TemplateRendererTest;
 
 $autoLoader = require __DIR__ . '/../autoload.php';
 $autoLoader->addNamespace('Hisui\\Tests\\', __DIR__ . '/../tests');
@@ -26,6 +27,7 @@ $testRunner->addTestCase(ResponseTest::class);
 $testRunner->addTestCase(RouteTest::class);
 $testRunner->addTestCase(RouterTest::class);
 $testRunner->addTestCase(RouteMatchTest::class);
+$testRunner->addTestCase(TemplateRendererTest::class);
 $testResultCollection = $testRunner->run();
 $testResultCollection->report();
 exit($testResultCollection->getExitCode());
