@@ -11,6 +11,6 @@ enum HttpMethod: string
     case Put = 'PUT';
     case Patch = 'PATCH';
     case Delete = 'DELETE';
-    case Option = 'OPTION';
+    case Options = 'OPTIONS';
     case Head = 'HEAD';
 }
