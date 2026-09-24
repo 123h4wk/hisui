@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hisui\Tests\Routing;
 
-use Hisui\Http\HttpMethod;
+use Hisui\Http\Method;
 use Hisui\Routing\Router;
 use Hisui\Routing\RouteMatch;
 use Hisui\Test\TestCase;
@@ -16,14 +16,14 @@ final class RouterTest extends TestCase
         $router = new Router();
         $router->get('/users', ['MockController', 'index']);
 
-        $matched = $router->resolve(HttpMethod::Get, '/users');
+        $matched = $router->resolve(Method::Get, '/users');
         $this->assertSame(true, $matched instanceof RouteMatch);
 
-        $matched = $router->resolve(HttpMethod::Post, '/users');
+        $matched = $router->resolve(Method::Post, '/users');
         $this->assertSame(null, $matched);
     }
 
-    public function testResolveAnyHttpMethod(): void
+    public function testResolveAnyMethod(): void
     {
         $router = new Router();
         $router->get('/users', ['MockController', 'index']);
@@ -34,25 +34,25 @@ final class RouterTest extends TestCase
         $router->options('/users', ['MockController', 'index']);
         $router->head('/users', ['MockController', 'index']);
 
-        $matched = $router->resolve(HttpMethod::Get, '/users');
+        $matched = $router->resolve(Method::Get, '/users');
         $this->assertSame(true, $matched instanceof RouteMatch);
 
-        $matched = $router->resolve(HttpMethod::Post, '/users');
+        $matched = $router->resolve(Method::Post, '/users');
         $this->assertSame(true, $matched instanceof RouteMatch);
 
-        $matched = $router->resolve(HttpMethod::Put, '/users');
+        $matched = $router->resolve(Method::Put, '/users');
         $this->assertSame(true, $matched instanceof RouteMatch);
 
-        $matched = $router->resolve(HttpMethod::Patch, '/users');
+        $matched = $router->resolve(Method::Patch, '/users');
         $this->assertSame(true, $matched instanceof RouteMatch);
 
-        $matched = $router->resolve(HttpMethod::Delete, '/users');
+        $matched = $router->resolve(Method::Delete, '/users');
         $this->assertSame(true, $matched instanceof RouteMatch);
 
-        $matched = $router->resolve(HttpMethod::Options, '/users');
+        $matched = $router->resolve(Method::Options, '/users');
         $this->assertSame(true, $matched instanceof RouteMatch);
 
-        $matched = $router->resolve(HttpMethod::Head, '/users');
+        $matched = $router->resolve(Method::Head, '/users');
         $this->assertSame(true, $matched instanceof RouteMatch);
     }
 }

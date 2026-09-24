@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Hisui\Tests\Http;
 
 use Hisui\Http\Request;
-use Hisui\Http\HttpMethod;
+use Hisui\Http\Method;
 use Hisui\Test\TestCase;
 
 final class RequestTest extends TestCase
@@ -17,7 +17,7 @@ final class RequestTest extends TestCase
             '/users'
         );
 
-        $this->assertSame(HttpMethod::Get, $request->method);
+        $this->assertSame(Method::Get, $request->method);
         $this->assertSame('/users', $request->path);
         $this->assertSame(null, $request->getQueryParam('id'));
         $this->assertSame([], $request->getListQueryParam('id'));
@@ -30,7 +30,7 @@ final class RequestTest extends TestCase
             '/users?id=100'
         );
 
-        $this->assertSame(HttpMethod::Get, $request->method);
+        $this->assertSame(Method::Get, $request->method);
         $this->assertSame('/users', $request->path);
         $this->assertSame('100', $request->getQueryParam('id'));
         $this->assertSame([], $request->getListQueryParam('id'));
@@ -43,7 +43,7 @@ final class RequestTest extends TestCase
             '/list?type=programing&languages[]=php&languages[]=java'
         );
 
-        $this->assertSame(HttpMethod::Get, $request->method);
+        $this->assertSame(Method::Get, $request->method);
         $this->assertSame('/list', $request->path);
         $this->assertSame('programing', $request->getQueryParam('type'));
         $this->assertSame('php', $request->getListQueryParam('languages')[0]);

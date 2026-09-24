@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Hisui\Http;
 
-enum HttpMethod: string
+enum Method: string
 {
     case Get = 'GET';
     case Post = 'POST';

@@ -5,7 +5,7 @@ declare(strict_types=1);
 use Hisui\Test\TestRunner;
 use Hisui\Tests\Test\SelfCheck;
 use Hisui\Tests\AutoLoaderTest;
-use Hisui\Tests\Http\HttpKernelTest;
+use Hisui\Tests\Http\KernelTest;
 use Hisui\Tests\Http\RequestTest;
 use Hisui\Tests\Http\ResponseTest;
 use Hisui\Tests\DI\ContainerTest;
@@ -22,7 +22,7 @@ SelfCheck::runFailingCase();
 
 $testRunner = new TestRunner();
 $testRunner->addTestCase(AutoLoaderTest::class);
-$testRunner->addTestCase(HttpKernelTest::class);
+$testRunner->addTestCase(KernelTest::class);
 $testRunner->addTestCase(RequestTest::class);
 $testRunner->addTestCase(ResponseTest::class);
 $testRunner->addTestCase(ContainerTest::class);

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Hisui\Http\HttpKernel;
+use Hisui\Http\Kernel;
 use Hisui\Http\Request;
 use Hisui\Http\Response;
 use Hisui\Http\ResponseEmitter;
@@ -30,7 +30,7 @@ $request = new Request(
     $_SERVER['REQUEST_METHOD'],
     $_SERVER['REQUEST_URI'],
 );
-$kernel = new HttpKernel($router);
+$kernel = new Kernel($router);
 $emitter = new ResponseEmitter();
 
 $emitter->emit($kernel->handle($request));

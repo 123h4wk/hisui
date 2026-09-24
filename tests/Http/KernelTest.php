@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Hisui\Tests\Http;
 
-use Hisui\Http\HttpKernel;
+use Hisui\Http\Kernel;
 use Hisui\Http\Request;
 use Hisui\Http\Response;
 use Hisui\Routing\Router;
 use Hisui\Test\TestCase;
 
-final class HttpKernelTest extends TestCase
+final class KernelTest extends TestCase
 {
     public function testHandleRequest(): void
     {
@@ -22,7 +22,7 @@ final class HttpKernelTest extends TestCase
         };
         $router = new Router();
         $router->get('/', [get_class($controller), 'index']);
-        $kernel = new HttpKernel($router);
+        $kernel = new Kernel($router);
         $response = $kernel->handle(new Request('GET', '/'));
 
         $this->assertSame(200, $response->status);

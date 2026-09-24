@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace Hisui\Routing;
 
-use Hisui\Http\HttpMethod;
+use Hisui\Http\Method;
 
 final class Route
 {
-    private HttpMethod $method;
+    private Method $method;
     private RouteAction $action;
     private array $patternList = [];
     private array $parameterList = [];
 
     public function __construct(
-        HttpMethod $method,
+        Method $method,
         string $pattern,
         RouteAction $routeAction,
     ) {
@@ -39,7 +39,7 @@ final class Route
         }
     }
 
-    public function match(HttpMethod $method, string $path): ?RouteMatch
+    public function match(Method $method, string $path): ?RouteMatch
     {
         if ($method !== $this->method) {
             return null;

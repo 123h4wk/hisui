@@ -6,7 +6,7 @@ namespace Hisui\Http;
 
 use Hisui\Routing\Router;
 
-final class HttpKernel
+final class Kernel
 {
     public function __construct(
         private Router $router,

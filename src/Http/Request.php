@@ -6,7 +6,7 @@ namespace Hisui\Http;
 
 final class Request
 {
-    public readonly HttpMethod $method;
+    public readonly Method $method;
     public readonly string $path;
     private readonly array $queryParams;
 
@@ -14,7 +14,7 @@ final class Request
         string $httpMethodString,
         string $requestTarget,
     ) {
-        $method = HttpMethod::tryFrom($httpMethodString);
+        $method = Method::tryFrom($httpMethodString);
         if ($method === null) {
             throw new \InvalidArgumentException(
                 '不正なHTTPメソッドです。'
