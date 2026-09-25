@@ -14,7 +14,7 @@ final class RouteTest extends TestCase
 {
     private function mockCtrl(): RouteAction
     {
-        return new RouteAction('MockController', 'index');
+        return new RouteAction(StubController::class, 'index');
     }
 
     public function testMatch(): void

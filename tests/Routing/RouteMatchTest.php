@@ -13,7 +13,7 @@ final class RouteMatchTest extends TestCase
     public function testCreate(): void
     {
         $matched = new RouteMatch(
-            new RouteAction('MockController', 'index'),
+            new RouteAction(StubController::class, 'index'),
             ['key' => 'value'],
         );
         $this->assertSame('value', $matched->params['key']);

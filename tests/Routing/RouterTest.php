@@ -14,7 +14,7 @@ final class RouterTest extends TestCase
     public function testResolve(): void
     {
         $router = new Router();
-        $router->get('/users', ['MockController', 'index']);
+        $router->get('/users', [StubController::class, 'index']);
 
         $matched = $router->resolve(Method::Get, '/users');
         $this->assertSame(true, $matched instanceof RouteMatch);
@@ -26,13 +26,13 @@ final class RouterTest extends TestCase
     public function testResolveAnyMethod(): void
     {
         $router = new Router();
-        $router->get('/users', ['MockController', 'index']);
-        $router->post('/users', ['MockController', 'index']);
-        $router->put('/users', ['MockController', 'index']);
-        $router->patch('/users', ['MockController', 'index']);
-        $router->delete('/users', ['MockController', 'index']);
-        $router->options('/users', ['MockController', 'index']);
-        $router->head('/users', ['MockController', 'index']);
+        $router->get('/users', [StubController::class, 'index']);
+        $router->post('/users', [StubController::class, 'index']);
+        $router->put('/users', [StubController::class, 'index']);
+        $router->patch('/users', [StubController::class, 'index']);
+        $router->delete('/users', [StubController::class, 'index']);
+        $router->options('/users', [StubController::class, 'index']);
+        $router->head('/users', [StubController::class, 'index']);
 
         $matched = $router->resolve(Method::Get, '/users');
         $this->assertSame(true, $matched instanceof RouteMatch);
