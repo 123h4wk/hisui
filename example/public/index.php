@@ -4,30 +4,14 @@ declare(strict_types=1);
 
 use Hisui\Http\Kernel;
 use Hisui\Http\Request;
-use Hisui\Http\Response;
 use Hisui\Http\ResponseEmitter;
 use Hisui\DI\Container;
 use Hisui\Routing\Router;
 use Hisui\View\TemplateRenderer;
+use Example\Controllers\PageController;
 
-require __DIR__ . '/../../autoload.php';
-
-final class AppController {
-    public function __construct(
-        private TemplateRenderer $template,
-    ) {
-    }
-
-    public function home(Request $request): Response
-    {
-        return new Response(body: $this->template->render('home'));
-    }
-
-    public function about(Request $request): Response
-    {
-        return new Response(body: $this->template->render('about'));
-    }
-}
+$loader = require __DIR__ . '/../../autoload.php';
+$loader->addNamespace('Example\\', __DIR__ . '/../src');
 
 $container = new Container();
 $container->singleton(TemplateRenderer::class, function () {
@@ -35,8 +19,8 @@ $container->singleton(TemplateRenderer::class, function () {
 });
 
 $router = new Router();
-$router->get('/', [AppController::class, 'home']);
-$router->get('/about', [AppController::class, 'about']);
+$router->get('/', [PageController::class, 'home']);
+$router->get('/about', [PageController::class, 'about']);
 
 $request = new Request(
     $_SERVER['REQUEST_METHOD'],
