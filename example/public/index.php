@@ -10,7 +10,7 @@ use Hisui\DI\Container;
 use Hisui\Routing\Router;
 use Hisui\View\TemplateRenderer;
 
-require __DIR__ . '/../autoload.php';
+require __DIR__ . '/../../autoload.php';
 
 final class AppController {
     public function __construct(
@@ -31,7 +31,7 @@ final class AppController {
 
 $container = new Container();
 $container->singleton(TemplateRenderer::class, function () {
-    return new TemplateRenderer(__DIR__ . '/templates');
+    return new TemplateRenderer(__DIR__ . '/../templates');
 });
 
 $router = new Router();
