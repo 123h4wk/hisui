@@ -8,25 +8,35 @@ use Hisui\Http\Response;
 use Hisui\Http\ResponseEmitter;
 use Hisui\DI\Container;
 use Hisui\Routing\Router;
+use Hisui\View\TemplateRenderer;
 
 require __DIR__ . '/../autoload.php';
 
-$controller = new class {
+final class AppController {
+    public function __construct(
+        private TemplateRenderer $template,
+    ) {
+    }
+
     public function home(Request $request): Response
     {
-        return new Response(200, 'Home - Hisui');
+        return new Response(body: $this->template->render('home'));
     }
 
     public function about(Request $request): Response
     {
-        return new Response(200, 'About - Hisui');
+        return new Response(body: $this->template->render('about'));
     }
-};
+}
 
 $container = new Container();
+$container->singleton(TemplateRenderer::class, function () {
+    return new TemplateRenderer(__DIR__ . '/templates');
+});
+
 $router = new Router();
-$router->get('/', [get_class($controller), 'home']);
-$router->get('/about', [get_class($controller), 'about']);
+$router->get('/', [AppController::class, 'home']);
+$router->get('/about', [AppController::class, 'about']);
 
 $request = new Request(
     $_SERVER['REQUEST_METHOD'],
