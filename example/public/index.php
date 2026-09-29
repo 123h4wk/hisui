@@ -9,6 +9,7 @@ use Hisui\DI\Container;
 use Hisui\Routing\Router;
 use Hisui\View\TemplateRenderer;
 use Example\Controllers\PageController;
+use Example\Error\AppErrorHandler;
 
 $loader = require __DIR__ . '/../../autoload.php';
 $loader->addNamespace('Example\\', __DIR__ . '/../src');
@@ -26,7 +27,10 @@ $request = new Request(
     $_SERVER['REQUEST_METHOD'],
     $_SERVER['REQUEST_URI'],
 );
-$kernel = new Kernel($container, $router);
+$errorHandler = new AppErrorHandler();
+
+$kernel = new Kernel($container, $router, $errorHandler);
 $emitter = new ResponseEmitter();
 
-$emitter->emit($kernel->handle($request));
+$response = $kernel->handle($request);
+$emitter->emit($response);
