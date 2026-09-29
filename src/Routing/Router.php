@@ -9,6 +9,7 @@ use Hisui\Http\Method;
 final class Router
 {
     private array $routes = [];
+    private ?RouteAction $fallbackAction = null;
 
     public function get(string $path, array $actionDef): void
     {
@@ -52,6 +53,11 @@ final class Router
         $this->routes[] = new Route(Method::Head, $path, $action);
     }
 
+    public function fallback(array $actionDef): void
+    {
+        $this->fallbackAction = new RouteAction(...$actionDef);
+    }
+
     public function resolve(Method $method, string $path): ?RouteMatch
     {
         foreach ($this->routes as $route) {
@@ -61,6 +67,8 @@ final class Router
             }
         }
 
-        return null;
+        return $this->fallbackAction === null
+            ? null
+            : new RouteMatch($this->fallbackAction, []);
     }
 }

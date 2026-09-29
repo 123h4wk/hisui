@@ -55,4 +55,24 @@ final class RouterTest extends TestCase
         $matched = $router->resolve(Method::Head, '/users');
         $this->assertSame(true, $matched instanceof RouteMatch);
     }
+
+    public function testFallbackAction(): void
+    {
+        $router = new Router();
+        $router->get('/users', [StubController::class, 'index']);
+        $router->fallback([StubController::class, 'fallback']);
+
+        $matched = $router->resolve(Method::Get, '/unknown');
+        $this->assertSame(StubController::class, $matched->action->class);
+        $this->assertSame('fallback', $matched->action->name);
+    }
+
+    public function testUnmatch(): void
+    {
+        $router = new Router();
+        $router->get('/users', [StubController::class, 'index']);
+
+        $matched = $router->resolve(Method::Get, '/unknown');
+        $this->assertSame(true, $matched === null);
+    }
 }

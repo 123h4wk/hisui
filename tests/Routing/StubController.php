@@ -9,4 +9,8 @@ final class StubController
     public function index()
     {
     }
+
+    public function fallback()
+    {
+    }
 }
